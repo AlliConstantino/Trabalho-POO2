@@ -1,78 +1,83 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Jogo {
-	public static void main(String[]args){
-	Scanner input =new Scanner(System.in);
-	Jogador[] jogadores = new Jogador[2];
-	boolean Fichasdisponiveis = true;
-	
-	//-------PRENCHER O ARRAY--------
-			for(int i=0; i < jogadores.length;i++){
-				if(jogadores[i]==null){
-					System.out.println("Deseja inserir jogador na posição " + (i+1) + "? sim ou não");
-					if(input.next().equals("sim")){
-						System.out.println("Insere um nome");
-						String nome = input.next();
-						Jogador J = new Jogador(nome);
-						jogadores[i] = J;
-					}//if
-				}//if
-			}//for
-			ApostarOuNao(jogadores);//apostando
-			rodar(jogadores);
-}//Main
-	
-//----------QUER APOSTAR OU NÃO------------
-	public static void ApostarOuNao(Jogador []jogadores){
-		Scanner input =new Scanner(System.in);
-		
-		for(int i=0; i < jogadores.length;i++){
-			if(jogadores[i]!=null){
-				System.out.println(jogadores[i].getNome()+ " Deseja apostar? sim ou não");
-				if(input.next().equals("sim")){ // quer apostar
-					apostar(jogadores[i]);					
-				}else 
-					if(jogadores[i].getSemapostas()==3){
-						System.out.println("Você já tem 3 rodadas sem apostas");
-						apostar(jogadores[i]);
-					}else
-						jogadores[i].SemApostar();
-			}//if
-		}//for
-	}//ApostarOuNao
-	
-	
-	//----------APOSTAR--------------
-	private static void apostar(Jogador J){
-		
-		Banca banc = new Banca();
-		Scanner input =new Scanner(System.in);
-		if(J.getFichas()>0){ //verificar se o jogador tem fichas suficientes
-			System.out.println("Apostar");
-			System.out.println("--------");
-			System.out.println("par ou impar\npreto ou vermelho\nnumero\nmaior ou menor");
-			String aposta = input.next();
-			J.setAposta(aposta);
-			
-			System.out.println("Insere o valor (número de fichas)");
-			J.setFichasApostadas(input.nextInt());
-			banc.ganharDoJogador(J.getFichasApostadas());
-			if(J.getAposta().equals("numero")){
-				System.out.println("Qual número deseja apostar?");
-				J.setNumeroAposta(input.nextInt());
-			}
-		}//if
-		input.close();
-	}//Apostar
-	
-	
-//----------------------------RODAR------------------------//
-	public static void rodar(Jogador[] jogadores){
-		Roleta rol = new Roleta();
-		Banca banc = new Banca();
-		rol.rodar();
-		int numero = rol.getNumero();
-		String cor = rol.getCor();
-	}//Rodar
-	
-}//Class_Jogo
+public class Jogo extends Roleta {
+     Roleta r = new Roleta(nome);//cria nova roleta
+    
+    public static void main(String[] args){
+    int n = 0;
+    ArrayList<String> jogadores = new ArrayList();
+   //Jogador[] jogadores = new Jogador[n];
+   Scanner sc = new Scanner(System.in);
+      
+        
+        
+      System.out.println("Bem vindo a Roleta.Deseja jogar Roleta EuropÃ©ia,Francesa ou Americana?");
+      
+      ArrayList<String> opcoes = new ArrayList();//criacao do array de opcoes que serao usados como opcoes do menu
+       opcoes.add("Europeia"); 
+       opcoes.add("Americana");
+       opcoes.add("Francesa");
+       
+       if(sc.next() == "Europeia"){
+          r.nome = "Europeia";
+         System.out.println("==================================================");
+         System.out.println("|       1. Apostar em vermelho                   |");
+         System.out.println("|       2. Apostar em preto                      |");
+         System.out.println("|       3. Apostar em numero                     |");
+         System.out.println("|       4. Apostar 1st 12                        |");
+         System.out.println("|       5. Apostar 2nd 12                        |");
+         System.out.println("|       6. Apostar 3rd 12                        |");
+         System.out.println("|       7. Apostar 1 a 18                        |");
+         System.out.println("|       8. Apostar 19 a 36                       |");
+         System.out.println("|       9. Apostar em 0                          |");
+         System.out.println("|       10. Apostar 3rd 12                       |");
+         System.out.println("|  * Digite o nÃºmero da opÃ§ao desejada *         |");
+         System.out.println(" =================================================");
+       }else if(sc.next() == "Francesa"){
+          r.nome = "Francesa";
+         System.out.println(" =================================================");
+         System.out.println("|       1. Apostar em vermelho                   |");
+         System.out.println("|       2. Apostar em preto                      |");
+         System.out.println("|       3. Apostar em numero                     |");
+         System.out.println("|       4. Apostar 1st 12                        |");
+         System.out.println("|       5. Apostar 2nd 12                        |");
+         System.out.println("|       6. Apostar 3rd 12                        |");
+         System.out.println("|       7. Apostar 1 a 18                        |");
+         System.out.println("|       8. Apostar 19 a 36                       |");
+         System.out.println("|       9. Apostar em 0                          |");
+         System.out.println("|       10. Apostar 00                           |");
+         System.out.println("|       11. Nao apostar                          |");
+         System.out.println("|       * Digite o numero da opcao desejada *      |");
+
+       }else{
+          r.nome = "Americana";
+         System.out.println("==================================================");
+         System.out.println("|       1. Apostar em vermelho                   |");
+         System.out.println("|       2. Apostar em preto                      |");
+         System.out.println("|       3. Apostar em numero                     |");
+         System.out.println("|       4. Apostar 1st 12                        |");
+         System.out.println("|       5. Apostar 2nd 12                        |");
+         System.out.println("|       6. Apostar 3rd 12                        |");
+         System.out.println("|       7. Apostar 1 a 18                        |");
+         System.out.println("|       8. Apostar 19 a 36                       |");
+         System.out.println("|       9. Apostar em 0                          |");
+         System.out.println("|       10. Apostar em 5 (0,00,1,2,3)            |");
+         System.out.println("|       11. Nao apostar                          |");
+         System.out.println("|       * Digite o numero da opcao desejada *    |");
+         System.out.println("==================================================");
+       }//fim do else
+       
+       System.out.println("");
+    }
+    
+    
+   
+   public Jogo(){
+      //System.out.println("Bem vindo a Roleta.Deseja jogar Roleta EuropÃ©ia,Francesa ou Americana?");
+       // String[] opcoes = new String[3]{"Europeia", "Francesa","Americana"};
+       
+   }//fim metodo contrutor
+  
+}//fim classe
